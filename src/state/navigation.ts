@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Page } from "../pages/pages.types";
+import { Page } from "../types/pages";
 
 export enum AtomKeyNavigation {
     Page = "Page",

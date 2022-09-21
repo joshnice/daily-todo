@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { Page } from "../pages/pages.types";
+import { Page } from "../types/pages";
 import { pageAtom } from "../state/navigation";
 import { headerHeight } from "../style/style";
 

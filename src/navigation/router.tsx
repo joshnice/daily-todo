@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import HeaderComponent from "../components/header";
 import HomePage from "../pages/home";
-import { Page } from "../pages/pages.types";
+import { Page } from "../types/pages";
 import SettingsPage from "../pages/settings";
 import { pageAtom } from "../state/navigation";
 
