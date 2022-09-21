@@ -5,4 +5,6 @@ export interface TodoItem {
     complete: boolean;
 }
 
-export type EditTodoItem = Partial<TodoItem>;
+export interface EditTodoItem extends Partial<TodoItem> {
+    id: string;
+}

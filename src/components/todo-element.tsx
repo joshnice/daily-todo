@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { TodoItem } from "../types/todo-item";
+import { EditTodoItem, TodoItem } from "../types/todo-item";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from "../style/icon-button";
@@ -9,7 +9,7 @@ import Tickbox from "./tickbox";
 interface TodoElementProps {
     item: TodoItem;
     onDelete: (id: string) => void;
-    onEdit: (updatedItem: TodoItem) => void;
+    onEdit: (updatedItem: EditTodoItem) => void;
 }
 
 const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEdit }) => {
@@ -17,7 +17,7 @@ const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEd
         <TodoElementContainer>
             <Tickbox 
                 checked={item.complete} 
-                onClick={() => onEdit({ ...item, complete: !item.complete })} 
+                onClick={() => onEdit({ id: item.id, complete: !item.complete })} 
             />
             { item.name }
             <IconButton onClick={() => onDelete(item.id)}>
