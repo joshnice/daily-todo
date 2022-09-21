@@ -10,7 +10,7 @@ const HomePage: FunctionComponent = () => {
     const [todoList, setTodoList] = useRecoilState(todosAtom);
 
     const handleAddItem = () => {
-        const newItem: TodoItem = { id: uuid(), name: "Hello World", description: "" };
+        const newItem: TodoItem = { id: uuid(), name: "Hello World", description: "", complete: false };
         setTodoList([ ...todoList, newItem ]);
     }
 
@@ -19,7 +19,8 @@ const HomePage: FunctionComponent = () => {
     }
 
     const handleEditItem = (item: TodoItem) => {
-        console.log("Updated item", item);
+        const editedItemIndex = todoList.findIndex(({ id }) => id === item.id);
+        setTodoList([ ...todoList.slice(0, editedItemIndex), item, ...todoList.slice(editedItemIndex  + 1)]);
     }
 
     return (
