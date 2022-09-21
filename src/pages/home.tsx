@@ -14,11 +14,24 @@ const HomePage: FunctionComponent = () => {
         setTodoList([ ...todoList, newItem ]);
     }
 
+    const handleDeleteItem = (deletedId: string) => {
+        setTodoList(todoList.filter(({ id }) => id !== deletedId ));
+    }
+
+    const handleEditItem = (item: TodoItem) => {
+        console.log("Updated item", item);
+    }
+
     return (
         <>
             <TodoListContainer>
                 {todoList.map((item) => 
-                    <TodoElement key={item.id} item={item} /> 
+                    <TodoElement 
+                        key={item.id} 
+                        item={item}
+                        onDelete={handleDeleteItem}
+                        onEdit={handleEditItem}
+                    /> 
                 )}
             </TodoListContainer>
             <button onClick={handleAddItem}>Add Item</button>
