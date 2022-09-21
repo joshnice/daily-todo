@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import HeaderComponent from "../components/header";
 import HomePage from "../pages/home";
@@ -11,11 +11,15 @@ const Router: FunctionComponent = () => {
     const selectedPage = useRecoilValue<Page>(pageAtom);
     return (
         <>
-        <HeaderComponent />
-        <PageContainer>
-            { Page.Home === selectedPage && <HomePage /> }
-            { Page.Settings === selectedPage && <SettingsPage /> }
-        </PageContainer>
+            <HeaderComponent />
+            <PageContainer>
+                { Page.Home === selectedPage && (
+                    <RecoilRoot>
+                        <HomePage />
+                    </RecoilRoot>
+                )}
+                { Page.Settings === selectedPage && <SettingsPage /> }
+            </PageContainer>
         </>
     );
 };
