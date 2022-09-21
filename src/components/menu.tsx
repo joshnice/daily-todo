@@ -1,11 +1,17 @@
 import { FunctionComponent } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { Page } from "../pages/pages.types";
+import { pageAtom } from "../state/navigation";
 import { headerHeight } from "../style/style";
 
 const Menu: FunctionComponent = () => {
+    const [_, setPage] = useRecoilState(pageAtom);
     return (
         <MenuContainer>
             Menu
+            <button onClick={() => setPage(Page.Home)}>Home</button>
+            <button onClick={() => setPage(Page.Settings)}>Settings</button>
         </MenuContainer>
     )
 }

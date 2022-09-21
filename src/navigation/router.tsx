@@ -4,6 +4,7 @@ import styled from "styled-components";
 import HeaderComponent from "../components/header";
 import HomePage from "../pages/home";
 import { Page } from "../pages/pages.types";
+import SettingsPage from "../pages/settings";
 import { pageAtom } from "../state/navigation";
 
 const Router: FunctionComponent = () => {
@@ -13,6 +14,7 @@ const Router: FunctionComponent = () => {
         <HeaderComponent />
         <PageContainer>
             { Page.Home === selectedPage && <HomePage /> }
+            { Page.Settings === selectedPage && <SettingsPage /> }
         </PageContainer>
         </>
     );
