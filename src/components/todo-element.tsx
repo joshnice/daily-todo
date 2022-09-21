@@ -1,5 +1,9 @@
-import { FunctionComponent } from "react"
-import { TodoItem } from "../types/todo-item"
+import { FunctionComponent } from "react";
+import { TodoItem } from "../types/todo-item";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { IconButton } from "../style/icon-button";
+import styled from "styled-components";
 
 interface TodoElementProps {
     item: TodoItem;
@@ -9,11 +13,19 @@ interface TodoElementProps {
 
 const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete }) => {
     return (
-        <div>
+        <TodoElementContainer>
             { item.name }
-            <button onClick={() => onDelete(item.id)}>Delete {item.name}</button>
-        </div>
+            <IconButton onClick={() => onDelete(item.id)}>
+                <FontAwesomeIcon icon={faTrash} />
+            </IconButton>
+        </TodoElementContainer>
     )
 }
+
+const TodoElementContainer = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+`;
 
 export default TodoElement

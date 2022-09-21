@@ -1,0 +1,1 @@
+export const fontColour = "#c9d1d9";
