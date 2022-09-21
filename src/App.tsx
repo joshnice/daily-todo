@@ -1,7 +1,8 @@
 import "./App.css";
+import Router from "./navigation/router";
 
 function App() {
-  return <div>React Application</div>;
+  return <Router />
 }
 
 export default App;
