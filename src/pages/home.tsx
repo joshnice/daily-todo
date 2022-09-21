@@ -3,8 +3,9 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import TodoElement from "../components/todo-element";
 import { todosAtom } from "../state/todo";
-import { TodoItem } from "../types/todo-item";
+import { EditTodoItem, TodoItem } from "../types/todo-item";
 import { v4 as uuid } from "uuid";
+import { findElementAndIndex } from "../utils/array-helpers";
 
 const HomePage: FunctionComponent = () => {
     const [todoList, setTodoList] = useRecoilState(todosAtom);
@@ -18,9 +19,9 @@ const HomePage: FunctionComponent = () => {
         setTodoList(todoList.filter(({ id }) => id !== deletedId ));
     }
 
-    const handleEditItem = (item: TodoItem) => {
-        const editedItemIndex = todoList.findIndex(({ id }) => id === item.id);
-        setTodoList([ ...todoList.slice(0, editedItemIndex), item, ...todoList.slice(editedItemIndex  + 1)]);
+    const handleEditItem = (editedItem: EditTodoItem) => {
+        const [item, editedItemIndex] = findElementAndIndex<TodoItem>(todoList, "id", editedItem.id);
+        setTodoList([ ...todoList.slice(0, editedItemIndex), { ...item, ...editedItem  }, ...todoList.slice(editedItemIndex  + 1)]);
     }
 
     return (
