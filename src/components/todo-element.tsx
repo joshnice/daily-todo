@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from "../style/icon-button";
 import styled from "styled-components";
+import Tickbox from "./tickbox";
 
 interface TodoElementProps {
     item: TodoItem;
@@ -11,9 +12,13 @@ interface TodoElementProps {
     onEdit: (updatedItem: TodoItem) => void;
 }
 
-const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete }) => {
+const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEdit }) => {
     return (
         <TodoElementContainer>
+            <Tickbox 
+                checked={item.complete} 
+                onClick={() => onEdit({ ...item, complete: !item.complete })} 
+            />
             { item.name }
             <IconButton onClick={() => onDelete(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
