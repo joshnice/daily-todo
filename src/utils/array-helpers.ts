@@ -1,7 +1,7 @@
-export function findElementAndIndex<T>(array: T[], property: keyof T, value: any): [T, number] {
+export function findElementAndIndex<Type extends object, PropertyType extends keyof Type>(array: Type[], property: PropertyType, value: Type[PropertyType]): [Type, number] {
     
     let foundItemIndex: number = -1;
-    let foundItem: T = null!;
+    let foundItem: Type = null!;
 
     array.forEach((element, index) => {
         if (element?.[property] === value) {
