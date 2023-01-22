@@ -1,7 +1,7 @@
 import { FunctionComponent, KeyboardEvent, useRef, useState } from "react";
 import { EditTodoItem, TodoItem } from "../types/todo-item";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from "../style/icon-button";
 import styled from "styled-components";
 import Tickbox from "./tickbox";
@@ -22,8 +22,8 @@ const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEd
         }
     }
 
-    const handleNameDoubleClick = () => {
-        onEdit({...item, editing: true})
+    const editItem = (editing: boolean) => {
+        onEdit({...item, editing: editing})
     }
 
     return (
@@ -32,10 +32,12 @@ const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEd
                 checked={item.complete} 
                 onClick={() => onEdit({ id: item.id, complete: !item.complete })} 
             />
-            {item.editing ? <input type="text" autoFocus onKeyDown={handleNameInputKeyPress} value={name} onChange={(event) => setName(event.target.value)}/> : <div onDoubleClick={handleNameDoubleClick}>{ item.name }</div>}
-            
+            {item.editing ? <input type="text" autoFocus onKeyDown={handleNameInputKeyPress} value={name} onChange={(event) => setName(event.target.value)}/> : <div onDoubleClick={() => editItem(true)}>{ item.name }</div>}
             <IconButton onClick={() => onDelete(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
+            </IconButton>
+            <IconButton onClick={() => item.editing ? onEdit({ ...item, name, editing: false }) : editItem(false)}>
+                <FontAwesomeIcon icon={faPenToSquare} />
             </IconButton>
         </TodoElementContainer>
     )
