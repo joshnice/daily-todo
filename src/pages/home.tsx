@@ -11,7 +11,7 @@ const HomePage: FunctionComponent = () => {
     const [todoList, setTodoList] = useRecoilState(todosAtom);
 
     const handleAddItem = () => {
-        const newItem: TodoItem = { id: uuid(), name: "Hello World", description: "", complete: false };
+        const newItem: TodoItem = { id: uuid(), name: "", description: "", complete: false, editing: true };
         setTodoList([ ...todoList, newItem ]);
     }
 
@@ -21,6 +21,7 @@ const HomePage: FunctionComponent = () => {
 
     const handleEditItem = (editedItem: EditTodoItem) => {
         const [item, editedItemIndex] = findElementAndIndex(todoList, "id", editedItem.id);
+        editedItem.editing = false;
         setTodoList([ ...todoList.slice(0, editedItemIndex), { ...item, ...editedItem  }, ...todoList.slice(editedItemIndex  + 1)]);
     }
 

@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, KeyboardEvent, useRef, useState } from "react";
 import { EditTodoItem, TodoItem } from "../types/todo-item";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -13,13 +13,22 @@ interface TodoElementProps {
 }
 
 const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEdit }) => {
+
+    const [name, setName] = useState(item.name);
+
+    const handleNameInputKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter" && name.length > 0) {
+            onEdit({...item, name })
+        }
+    }
     return (
         <TodoElementContainer>
             <Tickbox 
                 checked={item.complete} 
                 onClick={() => onEdit({ id: item.id, complete: !item.complete })} 
             />
-            { item.name }
+            {item.editing ? <input type="text" autoFocus onKeyDown={handleNameInputKeyPress} value={name} onChange={(event) => setName(event.target.value)}/> : <>{ item.name }</>}
+            
             <IconButton onClick={() => onDelete(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
             </IconButton>
