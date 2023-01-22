@@ -21,10 +21,8 @@ const HomePage: FunctionComponent = () => {
 
     const handleEditItem = (editedItem: EditTodoItem) => {
         const [item, editedItemIndex] = findElementAndIndex(todoList, "id", editedItem.id);
-        editedItem.editing = false;
         setTodoList([ ...todoList.slice(0, editedItemIndex), { ...item, ...editedItem  }, ...todoList.slice(editedItemIndex  + 1)]);
     }
-
     return (
         <>
             <TodoListContainer>

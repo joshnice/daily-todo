@@ -18,16 +18,21 @@ const TodoElement: FunctionComponent<TodoElementProps> = ({ item, onDelete, onEd
 
     const handleNameInputKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter" && name.length > 0) {
-            onEdit({...item, name })
+            onEdit({...item, name, editing: false })
         }
     }
+
+    const handleNameDoubleClick = () => {
+        onEdit({...item, editing: true})
+    }
+
     return (
         <TodoElementContainer>
             <Tickbox 
                 checked={item.complete} 
                 onClick={() => onEdit({ id: item.id, complete: !item.complete })} 
             />
-            {item.editing ? <input type="text" autoFocus onKeyDown={handleNameInputKeyPress} value={name} onChange={(event) => setName(event.target.value)}/> : <>{ item.name }</>}
+            {item.editing ? <input type="text" autoFocus onKeyDown={handleNameInputKeyPress} value={name} onChange={(event) => setName(event.target.value)}/> : <div onDoubleClick={handleNameDoubleClick}>{ item.name }</div>}
             
             <IconButton onClick={() => onDelete(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
